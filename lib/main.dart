@@ -1,6 +1,6 @@
-import 'package:flutter/material.dart';
-import 'package:recordatorios_app/screen/StatelessWidget.dart';
+import 'package:recordatorios_app/screen/screens.dart';
 
-void main() {
-  runApp(const MyApp());
-}
+void main() => runApp(const MyApp());
+
+
+

@@ -1,19 +1,16 @@
-import 'package:flutter/material.dart';
-import 'package:recordatorios_app/screen/login.dart';
+import 'package:recordatorios_app/screen/screens.dart';
 
 class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+  const MyApp({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      title: 'Gestor de tareas',
       debugShowCheckedModeBanner: false,
-      title: 'Aplicacion de recordatorios',
-      theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
-        useMaterial3: true,
-      ),
-      home: const MyLogin(),
+   
+      initialRoute: AppRoutes.initialroute,
+      routes: AppRoutes.routes,
     );
   }
 }
