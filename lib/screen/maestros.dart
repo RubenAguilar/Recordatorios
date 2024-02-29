@@ -27,13 +27,18 @@ class Maestros extends StatelessWidget {
       context: context,
       builder: (BuildContext context) {
         return AlertDialog(
-          title: const Text('Agregar Recordatorio'),
+          title: const Text('Agregar Maestro'),
           content: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
               TextField(
                 controller: maestroController,
-                decoration: const InputDecoration(hintText: 'Maestro'),
+                decoration: const InputDecoration(hintText: 'Nombre:'),
+              ),
+              const SizedBox(height: 20),
+              TextField(
+                controller: maestroController,
+                decoration: const InputDecoration(hintText: 'Materia:'),
               ),
             ],
           ),
