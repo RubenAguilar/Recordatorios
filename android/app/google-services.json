@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "736255883882",
+    "project_id": "recordatorios-app-a8081",
+    "storage_bucket": "recordatorios-app-a8081.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:736255883882:android:22804be22ee25d1923a813",
+        "android_client_info": {
+          "package_name": "com.example.recordatorios_app"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD-4PJKcHIYwOz5u0v8eH-FpRi4JxF0tYM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

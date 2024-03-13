@@ -1,4 +1,7 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:recordatorios_app/services/category_service.dart';
+
 
 class Categorias extends StatelessWidget {
   const Categorias({Key? key}) : super(key: key);
@@ -9,7 +12,21 @@ class Categorias extends StatelessWidget {
       appBar: AppBar(
         title: const Text('Categorías'),
       ),
-     body: const DataTableExample(),
+
+     body: FutureBuilder<List>(
+        future: getCategory(), // Llama al método para obtener las categorías
+        builder: (context, AsyncSnapshot<List> snapshot) {
+          if (snapshot.connectionState == ConnectionState.waiting) {
+            return const Center(child: CircularProgressIndicator());
+          } else if (snapshot.hasError) {
+            return const Center(child: Text('Error al cargar las categorías'));
+          } else {
+            List categorias = snapshot.data ?? [];
+            return DataTableExample(categorias: categorias);
+          }
+        },
+      ),
+
       floatingActionButton: FloatingActionButton(
         onPressed: () {
           _agregarCategoria(context);
@@ -21,26 +38,23 @@ class Categorias extends StatelessWidget {
 }
 
 
-class DataTableExample extends StatelessWidget {
-  const DataTableExample({super.key});
+class DataTableExample extends StatefulWidget {
+  final List categorias;
+  const DataTableExample({Key? key, required this.categorias}) : super(key: key);
 
+  @override
+  State<DataTableExample> createState() => _DataTableExampleState();
+}
+
+class _DataTableExampleState extends State<DataTableExample> {
   @override
   Widget build(BuildContext context) {
     return DataTable(
-      
       columns: const <DataColumn>[
         DataColumn(
           label: Expanded(
             child: Text(
               'Titulo',
-              style: TextStyle(fontStyle: FontStyle.italic),
-            ),
-          ),
-        ),
-        DataColumn(
-          label: Expanded(
-            child: Text(
-              'Fecha',
               style: TextStyle(fontStyle: FontStyle.italic),
             ),
           ),
@@ -54,41 +68,24 @@ class DataTableExample extends StatelessWidget {
           ),
         ),
       ],
-      rows: const <DataRow>[
-        DataRow(
+        rows: widget.categorias.map((categoria) {
+        return DataRow(
           cells: <DataCell>[
-            DataCell(Text('String 5')),
-            DataCell(Text('20/02')),
-            DataCell(Icon(Icons.delete)),
+            DataCell(Text(categoria['name'] ?? '')),
+            //DataCell(Text(categoria['fecha'] ?? '')),
+            DataCell(IconButton(
+              icon: Icon(Icons.delete),
+              onPressed: () {
+                // Lógica para eliminar la categoría
+              },
+            )),
           ],
-        ),
-        DataRow(
-          cells: <DataCell>[
-            DataCell(Text('Cuestionario')),
-            DataCell(Text('24/02')),
-            DataCell(Icon(Icons.delete)),
-          ],
-        ),
-        DataRow(
-          cells: <DataCell>[
-            DataCell(Text('Tarea Gerardo')),
-            DataCell(Text('27/02')),
-            DataCell(Icon(Icons.delete)),
-          ],
-        ),
-         DataRow(
-          cells: <DataCell>[
-            DataCell(Text('Tarea Responsabilidad')),
-            DataCell(Text('29/02')),
-            DataCell(Icon(Icons.delete)),
-          ],
-        ),
-      ],
+        );
+      }).toList(),
       
     );
     
   }
-  
 }
 void _agregarCategoria(BuildContext context) async {
     TextEditingController categoriaController = TextEditingController();

@@ -3,25 +3,88 @@ import 'package:flutter/material.dart';
 class Maestros extends StatelessWidget {
   const Maestros({Key? key}) : super(key: key);
 
-  @override
+   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Maestros'),
       ),
-      body: const Center(
-        child: Text('maestros'),
-      ),
+     body: const DataTableExample(),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          _mostrarDialogoAgregarRecordatorio(context);
+          _agregarMaestro(context);
         },
         child: const Icon(Icons.add),
-      ),
+    )
     );
   }
-  void _mostrarDialogoAgregarRecordatorio(BuildContext context) async {
-    TextEditingController maestroController = TextEditingController();
+}
+
+
+class DataTableExample extends StatelessWidget {
+  const DataTableExample({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return DataTable(
+      
+      columns: const <DataColumn>[
+        DataColumn(
+          label: Expanded(
+            child: Text(
+              'Nombre',
+              style: TextStyle(fontStyle: FontStyle.italic),
+            ),
+          ),
+        ),
+        DataColumn(
+          label: Expanded(
+            child: Text(
+              'Materia',
+              style: TextStyle(fontStyle: FontStyle.italic),
+            ),
+          ),
+        ),
+        DataColumn(
+          label: Expanded(
+            child: Text(
+              'Editar',
+              style: TextStyle(fontStyle: FontStyle.italic),
+            ),
+          ),
+        ),
+      ],
+      rows: const <DataRow>[
+        DataRow(
+          cells: <DataCell>[
+            DataCell(Text('Roberto')),
+            DataCell(Text('Matematicas')),
+            DataCell(Icon(Icons.edit)),
+          ],
+        ),
+        DataRow(
+          cells: <DataCell>[
+            DataCell(Text('Ruben')),
+            DataCell(Text('Geografia')),
+            DataCell(Icon(Icons.edit)),
+          ],
+        ),
+        DataRow(
+          cells: <DataCell>[
+            DataCell(Text('Juanito')),
+            DataCell(Text('Historia')),
+            DataCell(Icon(Icons.edit)),
+          ],
+        ),
+      ],
+      
+    );
+    
+  }
+  
+}
+void _agregarMaestro(BuildContext context) async {
+    TextEditingController categoriaController = TextEditingController();
 
     await showDialog<String>(
       context: context,
@@ -32,14 +95,15 @@ class Maestros extends StatelessWidget {
             mainAxisSize: MainAxisSize.min,
             children: [
               TextField(
-                controller: maestroController,
+                controller: categoriaController,
                 decoration: const InputDecoration(hintText: 'Nombre:'),
               ),
-              const SizedBox(height: 20),
               TextField(
-                controller: maestroController,
+                controller: categoriaController,
                 decoration: const InputDecoration(hintText: 'Materia:'),
               ),
+            
+             
             ],
           ),
           actions: <Widget>[
@@ -60,4 +124,4 @@ class Maestros extends StatelessWidget {
       },
     );
   }
-}
+
